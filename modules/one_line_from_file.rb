@@ -9,14 +9,18 @@ module OneLineFromFile
   # pick a random strategy
 
   # store used strategies in a file with (store the md5 sum of the strategies' text)
-  attr_reader :fodder
+  attr_reader :lines
 
   def initialize
-    @fodder = []
+    load_lines
   end
 
   def get_lines_from_file
-    IO::readlines('fodder.txt').map { |line| line.chomp }
+    begin
+      IO::readlines('lines.txt').map { |line| line.chomp }
+    rescue Errno::ENOENT
+      []
+    end
   end
   
   def get_lines
@@ -24,31 +28,35 @@ module OneLineFromFile
   end
   
   def get_used_lines_from_file
-    IO::readlines('used_fodder.txt').map { |line| line.chomp }
+    begin
+      IO::readlines('used_lines.txt').map { |line| line.chomp }
+    rescue Errno::ENOENT
+      []
+    end
   end
   
   def get_used_lines
     @used_lines ||=  get_used_lines_from_file
   end
   
-  def load_fodder
+  def load_lines
+    # debugger
     used = get_used_lines
     unused_lines = get_lines.select { |line| !used.include?(line) }
-    add_fodder(*unused_lines)
+    add_lines(*unused_lines)
   end
 
-  def add_fodder(*fodder)
-    @fodder.concat(fodder)
+  def add_lines(*new_lines)
+    @lines.concat(new_lines)
   end
 
   def pick
-    rand(fodder.length)
+    rand(get_lines.length)
   end
 
   def next
-    fodder.delete_at(pick)
+    @lines.delete_at(pick)
   end
 
 end
 
-# Daily_Oblique/ZenKoan77
