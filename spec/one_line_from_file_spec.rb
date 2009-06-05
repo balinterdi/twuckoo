@@ -11,6 +11,7 @@ Spec::Runner.configure do |config|
 end
 
 class CuckooTwittererWithOneLineFromFileSpec
+
   describe "A cuckoo twitterer with one line from a file" do
     before do
       CuckooTwitterer.send(:include, OneLineFromFile)
@@ -26,24 +27,38 @@ class CuckooTwittererWithOneLineFromFileSpec
 
     describe "when it tweeted a line already" do
       before do
-        @cuckoo.stubs(:fodder).returns(["I am happy", "I am sad"])
+        @cuckoo.stubs(:fodder).returns(["I am happy", "I am sad", "I am thrilled", "I am bored"])
         @cuckoo.stubs(:pick).returns(0)
         @cuckoo.tweet
       end
 
       it "it removes it" do
-        @cuckoo.fodder.should == ["I am sad"]
+        @cuckoo.fodder.should == ["I am sad", "I am thrilled", "I am bored"]
       end
 
       it "it picks an unused line to tweet next" do
-        @cuckoo.next.should == "I am sad"
+        next_pick = @cuckoo.next
+        ["I am sad", "I am thrilled", "I am bored"].should include(next_pick)
       end
 
     end
 
-    it "returns the used lines correctly" do
-      @cuckoo.stubs(:use).returns()
-      @cuckoo
+    it "loads the available lines (fodder) at startup" do
+      @cuckoo.expects(:get_lines).returns(["I am happy", "I am sad", "I am thrilled", "I am bored"])
+      @cuckoo.stubs(:get_used_lines).returns([])
+      @cuckoo.load_fodder
+      @cuckoo.fodder.should == ["I am happy", "I am sad", "I am thrilled", "I am bored"]
+    end
+
+    describe "when having used lines in a previous run" do
+      before do
+        @cuckoo.stubs(:get_lines).returns(["I am happy", "I am sad", "I am thrilled", "I am bored"])
+        @cuckoo.expects(:get_used_lines).returns(["I am happy", "I am sad"])
+        @cuckoo.load_fodder
+      end
+      it "should not pick those used lines" do
+        @cuckoo.fodder.should == ["I am thrilled", "I am bored"]
+      end
     end
 
   end
