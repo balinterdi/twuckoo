@@ -20,14 +20,14 @@ class CuckooTwittererWithOneLineFromFileSpec
     end
 
     it "stores a line that was sent to it correctly" do
-      @cuckoo.get_lines.should be_empty
+      @cuckoo.lines.should be_empty
       @cuckoo.add_lines("I am happy", "I am sad")
-      @cuckoo.get_lines.should == ["I am happy", "I am sad"]
+      @cuckoo.lines.should == ["I am happy", "I am sad"]
     end
 
     describe "when it tweeted a line already" do
       before do
-        @cuckoo.stubs(:get_lines).returns(["I am happy", "I am sad", "I am thrilled", "I am bored"])
+        @cuckoo.add_lines("I am happy", "I am sad", "I am thrilled", "I am bored")
         @cuckoo.stubs(:pick).returns(0)
         @cuckoo.tweet
       end
@@ -44,12 +44,14 @@ class CuckooTwittererWithOneLineFromFileSpec
     end
 
     it "only reads the file to load lines from the first time around" do
+      pending
       @cuckoo.stubs(:get_used_lines_from_file).returns([])
       @cuckoo.expects(:get_lines_from_file).returns(["I am happy", "I am sad", "I am thrilled", "I am bored"])
       2.times { @cuckoo.load_lines }
     end
 
     it "only reads the file to load used lines from the first time around" do
+      pending
       @cuckoo.stubs(:get_lines_from_file).returns(["I am happy", "I am sad", "I am thrilled", "I am bored"])
       @cuckoo.expects(:get_used_lines_from_file).returns([])
       2.times { @cuckoo.load_lines }
@@ -62,9 +64,8 @@ class CuckooTwittererWithOneLineFromFileSpec
       end
 
       it "loads the available ones" do
-        puts "XXX Now loading lines"
         @cuckoo.load_lines
-        @cuckoo.get_lines.should == ["I am happy", "I am sad", "I am thrilled", "I am bored"]
+        @cuckoo.lines.should == ["I am happy", "I am sad", "I am thrilled", "I am bored"]
       end
 
       describe "when having used ones from a previous run" do
@@ -73,7 +74,7 @@ class CuckooTwittererWithOneLineFromFileSpec
           @cuckoo.load_lines
         end
         it "should not pick those used lines" do
-          @cuckoo.get_lines.should == ["I am thrilled", "I am bored"]
+          @cuckoo.lines.should == ["I am thrilled", "I am bored"]
         end
       end
     end

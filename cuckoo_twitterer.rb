@@ -1,9 +1,16 @@
 class CuckooTwitterer
-
-  #TODO: move most of these functions to the module (maybe except the tweet method)
-
+  # the idea is to include a module with a well-defined API with three methods:
+  # - load_tweets
+  # - next (?next_tweet)
+  #
   def tweet
-    self.next
+    next_tweet = self.next
+    #TODO: tweet the next_tweet
+  end
+  
+  def run
+    load_tweets
+    tweet # in loop?
   end
 
 end

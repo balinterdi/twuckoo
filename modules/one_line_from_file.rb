@@ -12,7 +12,8 @@ module OneLineFromFile
   attr_reader :lines
 
   def initialize
-    load_lines
+    @lines = []
+    # load_lines
   end
 
   def get_lines_from_file
@@ -23,8 +24,8 @@ module OneLineFromFile
     end
   end
   
-  def get_lines
-    @lines ||= get_lines_from_file
+  def get_all_lines
+    @fresh_lines ||= get_lines_from_file
   end
   
   def get_used_lines_from_file
@@ -42,7 +43,7 @@ module OneLineFromFile
   def load_lines
     # debugger
     used = get_used_lines
-    unused_lines = get_lines.select { |line| !used.include?(line) }
+    unused_lines = get_all_lines.select { |line| !used.include?(line) }
     add_lines(*unused_lines)
   end
 
@@ -51,7 +52,7 @@ module OneLineFromFile
   end
 
   def pick
-    rand(get_lines.length)
+    rand(lines.length)
   end
 
   def next
