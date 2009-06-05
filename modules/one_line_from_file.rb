@@ -15,12 +15,20 @@ module OneLineFromFile
     @fodder = []
   end
 
-  def get_lines
+  def get_lines_from_file
     IO::readlines('fodder.txt').map { |line| line.chomp }
   end
   
-  def get_used_lines
+  def get_lines
+    @lines ||= get_lines_from_file
+  end
+  
+  def get_used_lines_from_file
     IO::readlines('used_fodder.txt').map { |line| line.chomp }
+  end
+  
+  def get_used_lines
+    @used_lines ||=  get_used_lines_from_file
   end
   
   def load_fodder
