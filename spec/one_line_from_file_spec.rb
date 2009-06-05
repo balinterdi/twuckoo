@@ -43,23 +43,27 @@ class CuckooTwittererWithOneLineFromFileSpec
 
     end
 
-    it "loads the available lines (fodder) at startup" do
-      @cuckoo.expects(:get_lines).returns(["I am happy", "I am sad", "I am thrilled", "I am bored"])
-      @cuckoo.stubs(:get_used_lines).returns([])
-      @cuckoo.load_fodder
-      @cuckoo.fodder.should == ["I am happy", "I am sad", "I am thrilled", "I am bored"]
-    end
-
-    describe "when having used lines in a previous run" do
+    describe "when loading lines to use" do
       before do
-        @cuckoo.stubs(:get_lines).returns(["I am happy", "I am sad", "I am thrilled", "I am bored"])
-        @cuckoo.expects(:get_used_lines).returns(["I am happy", "I am sad"])
-        @cuckoo.load_fodder
+        @cuckoo.expects(:get_lines).returns(["I am happy", "I am sad", "I am thrilled", "I am bored"])
+        @cuckoo.stubs(:get_used_lines).returns([])        
       end
-      it "should not pick those used lines" do
-        @cuckoo.fodder.should == ["I am thrilled", "I am bored"]
+      
+      it "loads the available ones (fodder)" do
+        @cuckoo.load_fodder
+        @cuckoo.fodder.should == ["I am happy", "I am sad", "I am thrilled", "I am bored"]
+      end
+      
+      describe "when having used ones from a previous run" do
+        before do
+          @cuckoo.expects(:get_used_lines).returns(["I am happy", "I am sad"])
+          @cuckoo.load_fodder
+        end
+        it "should not pick those used lines" do
+          @cuckoo.fodder.should == ["I am thrilled", "I am bored"]
+        end
       end
     end
-
+    
   end
 end
