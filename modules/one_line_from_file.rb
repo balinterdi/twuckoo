@@ -11,6 +11,9 @@ module OneLineFromFile
   # store used strategies in a file with (store the md5 sum of the strategies' text)
   attr_reader :lines
 
+  LINES_FILE = 'lines.txt'
+  USED_LINES_FILE = 'used_lines.txt'
+
   def initialize
     @lines = []
     # load_lines
@@ -18,28 +21,28 @@ module OneLineFromFile
 
   def get_lines_from_file
     begin
-      IO::readlines('lines.txt').map { |line| line.chomp }
+      IO::readlines(LINES_FILE).map { |line| line.chomp }
     rescue Errno::ENOENT
       []
     end
   end
-  
+
   def get_all_lines
     @fresh_lines ||= get_lines_from_file
   end
-  
+
   def get_used_lines_from_file
     begin
-      IO::readlines('used_lines.txt').map { |line| line.chomp }
+      IO::readlines(USED_LINES_FILE).map { |line| line.chomp }
     rescue Errno::ENOENT
       []
     end
   end
-  
+
   def get_used_lines
     @used_lines ||=  get_used_lines_from_file
   end
-  
+
   def load_lines
     # debugger
     used = get_used_lines
@@ -55,8 +58,16 @@ module OneLineFromFile
     rand(lines.length)
   end
 
+  def store(line)
+    open(USED_LINES_FILE, "a") do |file|
+      file.write(line + "\n")
+    end
+  end
+
   def next
-    @lines.delete_at(pick)
+    line = @lines.delete_at(pick)
+    store(line)
+    line
   end
 
 end

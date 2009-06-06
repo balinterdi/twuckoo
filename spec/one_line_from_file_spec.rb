@@ -16,7 +16,8 @@ class CuckooTwittererWithOneLineFromFileSpec
     before do
       CuckooTwitterer.send(:include, OneLineFromFile)
       @cuckoo = CuckooTwitterer.new
-      # @cuckoo.add_lines("I am happy", "I am sad", "I am thrilled", "I am bored")
+      # just so that no files will be written
+      @cuckoo.stubs(:store).returns(nil)
     end
 
     it "stores a line that was sent to it correctly" do
@@ -34,6 +35,12 @@ class CuckooTwittererWithOneLineFromFileSpec
 
       it "it removes it" do
         @cuckoo.lines.should == ["I am sad", "I am thrilled", "I am bored"]
+      end
+
+      it "stores it" do
+        @cuckoo.stubs(:pick).returns(0)
+        @cuckoo.expects(:store).with("I am sad")
+        @cuckoo.tweet
       end
 
       it "it picks an unused line to tweet next" do
