@@ -19,6 +19,10 @@ module OneLineFromFile
     # load_lines
   end
 
+  def load_tweets
+    load_lines
+  end
+  
   def get_lines_from_file
     begin
       IO::readlines(LINES_FILE).map { |line| line.chomp }

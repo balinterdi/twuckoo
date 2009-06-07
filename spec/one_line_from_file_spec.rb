@@ -25,6 +25,13 @@ class CuckooTwittererWithOneLineFromFileSpec
       @cuckoo.add_lines("I am happy", "I am sad")
       @cuckoo.lines.should == ["I am happy", "I am sad"]
     end
+    
+    it "loads all the lines in the file when sent the load_tweets message" do
+      lines = ["I am happy", "I am sad", "I am thrilled", "I am bored"]
+      @cuckoo.expects(:get_lines_from_file).returns(lines)
+      @cuckoo.load_tweets
+      @cuckoo.lines.should == lines
+    end
 
     describe "when it tweeted a line already" do
       before do
@@ -47,9 +54,15 @@ class CuckooTwittererWithOneLineFromFileSpec
         next_pick = @cuckoo.next
         ["I am sad", "I am thrilled", "I am bored"].should include(next_pick)
       end
-
     end
 
+    it "tweets all the available lines in as many 'rounds' as there are lines" do
+      lines = ["I am happy", "I am sad", "I am thrilled", "I am bored"]
+      @cuckoo.add_lines(*lines)
+      lines.length.times { @cuckoo.tweet }
+      @cuckoo.lines.should be_empty
+    end
+    
     it "only reads the file to load lines from the first time around" do
       pending
       @cuckoo.stubs(:get_used_lines_from_file).returns([])
