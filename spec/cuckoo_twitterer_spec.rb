@@ -17,12 +17,18 @@ class CuckooTwittererSpec
     
     describe "when there is nothing to tweet" do
       before do
-        @cuckoo.stubs(:next).returns(nil)
+        @cuckoo.stubs(:next).returns(nil)        
+        @cuckoo.stubs(:load_tweets).returns(nil)
       end
       it "does not call store" do
         @cuckoo.expects(:store).never
         @cuckoo.tweet
       end
+      it "quits" do
+        pending
+        @cuckoo.expects(:quit).once
+        @cuckoo.run
+      end      
     end
   end
 end

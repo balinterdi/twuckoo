@@ -9,24 +9,28 @@ class CuckooTwitterer
   #
   def tweet
     next_tweet = self.next
-    store(next_tweet) unless next_tweet.nil?
-    #TODO: tweet the next_tweet
-    puts "XXX Testing? #{testing?}"
-    if testing?
-      puts "XXX Tweeting #{next_tweet}"
-    else
-      puts "XXX Tweeting #{next_tweet}"
-      # twitter.status(:post, next_tweet)
+    unless next_tweet.nil?
+      store(next_tweet)
+      if testing?
+        puts "Tweeting #{next_tweet}"
+      else
+        twitter.status(:post, next_tweet)
+      end
     end
+    next_tweet
   end
 
   def run
     load_tweets
     loop do
-      tweet
+      tweeted = tweet
+      quit if tweeted.nil?
       sleep(1)
-    end 
+    end
   end
 
+  def quit
+    exit
+  end
 end
 
