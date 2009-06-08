@@ -69,9 +69,7 @@ module OneLineFromFile
   end
 
   def next
-    line = @lines.delete_at(pick)
-    store(line)
-    line
+    @lines.delete_at(pick)
   end
 
 end

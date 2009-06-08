@@ -3,6 +3,7 @@ require "mocha"
 
 require File.join(File.dirname(__FILE__), '..', 'cuckoo_twitterer')
 require File.join(File.dirname(__FILE__), '..', 'modules', 'one_line_from_file')
+require File.join(File.dirname(__FILE__), '..', 'environments')
 
 # use mocha for mocking instead of
 # Rspec's own mock framework
@@ -11,6 +12,9 @@ Spec::Runner.configure do |config|
 end
 
 class CuckooTwittererWithOneLineFromFileSpec
+
+  extend CuckooEnvironment
+  set_testing
 
   describe "A cuckoo twitterer with one line from a file" do
     before do
@@ -25,7 +29,7 @@ class CuckooTwittererWithOneLineFromFileSpec
       @cuckoo.add_lines("I am happy", "I am sad")
       @cuckoo.lines.should == ["I am happy", "I am sad"]
     end
-    
+
     it "loads all the lines in the file when sent the load_tweets message" do
       lines = ["I am happy", "I am sad", "I am thrilled", "I am bored"]
       @cuckoo.expects(:get_lines_from_file).returns(lines)
@@ -62,7 +66,7 @@ class CuckooTwittererWithOneLineFromFileSpec
       lines.length.times { @cuckoo.tweet }
       @cuckoo.lines.should be_empty
     end
-    
+
     it "only reads the file to load lines from the first time around" do
       pending
       @cuckoo.stubs(:get_used_lines_from_file).returns([])
