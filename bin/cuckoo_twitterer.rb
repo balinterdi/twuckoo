@@ -8,5 +8,5 @@ end
 
 CuckooTwitterer.send(:include, OneLineFromFile)
 @cuckoo = CuckooTwitterer.new
-@cuckoo.set_testing
+# @cuckoo.set_testing
 @cuckoo.run

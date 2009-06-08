@@ -5,8 +5,8 @@ class CuckooTwitterer
   include CuckooEnvironment
   # the idea is to include a module with a well-defined API with three methods:
   # - load_tweets
-  # - next (?next_tweet)
-  #
+  # - next
+  # - store(tweet)
   def tweet
     next_tweet = self.next
     unless next_tweet.nil?
@@ -25,7 +25,7 @@ class CuckooTwitterer
     loop do
       tweeted = tweet
       quit if tweeted.nil?
-      sleep(1)
+      sleep(60*60*24)
     end
   end
 
