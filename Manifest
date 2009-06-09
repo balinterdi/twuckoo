@@ -1,5 +1,7 @@
 bin/cuckoo_twitterer.rb
+CHANGELOG
 config/bot.yml
+cuckoo_twitterer.gemspec
 lib/cuckoo_twitterer.rb
 lib/environments.rb
 lib/modules/one_line_from_file.rb
