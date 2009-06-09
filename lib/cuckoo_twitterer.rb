@@ -1,6 +1,6 @@
+require 'rubygems'
 require File.join(File.dirname(__FILE__), 'environments')
 require 'twibot'
-require "ruby-debug"
 
 class CuckooTwitterer
   include CuckooEnvironment

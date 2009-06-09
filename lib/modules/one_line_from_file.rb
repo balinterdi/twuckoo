@@ -1,8 +1,3 @@
-# require 'scrubyt'
-require "rubygems"
-require 'open-uri'
-require "hpricot"
-
 module OneLineFromFile
   # read all lines from the file that contains the strategies
   # select the strategies that are not used yet

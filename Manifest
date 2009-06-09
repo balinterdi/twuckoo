@@ -1,6 +1,5 @@
-bin/cuckoo_twitterer.rb
+bin/cuckoo_twitterer
 CHANGELOG
-config/bot.yml
 cuckoo_twitterer.gemspec
 lib/cuckoo_twitterer.rb
 lib/environments.rb
