@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), 'environments')
 require 'twibot'
+require "ruby-debug"
 
 class CuckooTwitterer
   include CuckooEnvironment
@@ -25,7 +26,7 @@ class CuckooTwitterer
     loop do
       tweeted = tweet
       quit if tweeted.nil?
-      sleep(60*60*24)
+      sleep(24*24*60)
     end
   end
 

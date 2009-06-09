@@ -1,4 +1,4 @@
-dir = File.join(File.dirname(__FILE__), '..')
+dir = File.join(File.dirname(__FILE__), '..', 'lib')
 
 require File.join(dir, 'cuckoo_twitterer')
 

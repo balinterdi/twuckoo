@@ -1,0 +1,11 @@
+bin/cuckoo_twitterer.rb
+config/bot.yml
+lib/cuckoo_twitterer.rb
+lib/environments.rb
+lib/modules/one_line_from_file.rb
+Manifest
+Rakefile
+spec/cuckoo_twitterer_spec.rb
+spec/one_line_from_file_spec.rb
+spec/spec.opts
+tasks/spec.rake
