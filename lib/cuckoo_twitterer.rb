@@ -1,5 +1,6 @@
 require 'rubygems'
 require File.join(File.dirname(__FILE__), 'environments')
+require File.join(File.dirname(__FILE__), 'duration_string')
 require 'twibot'
 
 class CuckooTwitterer
@@ -21,12 +22,16 @@ class CuckooTwitterer
     next_tweet
   end
 
+  def sleep_for(duration)
+    sleep(DurationString.to_seconds(duration))
+  end
+
   def run
     load_tweets
     loop do
       tweeted = tweet
       quit if tweeted.nil?
-      sleep(24*24*60)
+      sleep_for("1d")
     end
   end
 

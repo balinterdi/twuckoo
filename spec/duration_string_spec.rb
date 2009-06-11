@@ -3,10 +3,6 @@ dir = File.join(File.dirname(__FILE__), '..', 'lib')
 require File.join(dir, 'duration_string')
 
 describe "a string representing a duration" do
-  before do
-    # CuckooTwitterer.send(:include, DurationString)
-  end
-
   it "gives back the number of seconds for seconds" do
     DurationString.to_seconds("17s").should == 17
   end
@@ -25,6 +21,10 @@ describe "a string representing a duration" do
 
   it "gives back the number of seconds for hours for dur. strings with only weeks defined" do
     DurationString.to_seconds("3w").should == 60 * 60 * 24 * 7 * 3
+  end
+
+  it "gives back the number of seconds for a dur. string that combines several dur. characters" do
+    DurationString.to_seconds("1d3h18m22s").should == (60 * 60 * 24 * 1) + (60 * 60 * 3) + (60 * 18) + 22
   end
 
 end

@@ -43,7 +43,6 @@ module OneLineFromFile
   end
 
   def load_lines
-    # debugger
     used = get_used_lines
     unused_lines = get_all_lines.select { |line| !used.include?(line) }
     add_lines(*unused_lines)

@@ -2,12 +2,11 @@ module DurationString
   class << self
     MULTIPLIERS = { "s" => 1, "m" => 60, "h" => 60 * 60, "d" => 60 * 60 * 24, "w" => 60 * 60 * 24 * 7 }
     def to_seconds(duration)
-      seconds = 0
-      duration.scan(/(\d+)([smhdw])/).each do |num, dur_chr|
+      duration.scan(/(\d+)([smhdw])/).inject(0) do |seconds, match|
+        num, dur_chr = match
         multiplier = MULTIPLIERS[dur_chr]
-        seconds = num.to_i * multiplier
+        seconds + num.to_i * multiplier
       end
-      seconds
     end
   end
 end
