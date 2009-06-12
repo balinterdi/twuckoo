@@ -9,12 +9,19 @@ class CuckooTwitterer
   # - load_tweets
   # - next
   # - store(tweet)
+  attr_accessor :time_to_sleep
+
+  def initialize
+    @time_to_sleep = "1d"
+    super
+  end
+
   def tweet
     next_tweet = self.next
     unless next_tweet.nil?
       store(next_tweet)
       if testing?
-        puts "Tweeting #{next_tweet}"
+        puts "(test) Tweeting #{next_tweet}"
       else
         twitter.status(:post, next_tweet)
       end
@@ -22,16 +29,32 @@ class CuckooTwitterer
     next_tweet
   end
 
-  def sleep_for(duration)
-    sleep(DurationString.to_seconds(duration))
+  def get_config_values_from_file
+    config_values = {}
+    open('config/cuckoo.yml', 'r') do |f|
+      config_values = YAML.load(f.read)
+    end
+    config_values
+  end
+
+  def setup
+    get_config_values_from_file.each_pair do |attr, value|
+      self.send("#{attr}=".to_sym, value)
+    end
+  end
+
+  def relax
+    seconds_to_sleep = DurationString.to_seconds(time_to_sleep)
+    sleep(seconds_to_sleep)
   end
 
   def run
+    setup
     load_tweets
     loop do
       tweeted = tweet
       quit if tweeted.nil?
-      sleep_for("1d")
+      relax
     end
   end
 
@@ -39,4 +62,3 @@ class CuckooTwitterer
     exit
   end
 end
-
