@@ -30,11 +30,13 @@ class CuckooTwitterer
   end
 
   def get_config_values_from_file
-    config_values = {}
-    open('config/cuckoo.yml', 'r') do |f|
-      config_values = YAML.load(f.read)
+    begin
+      open('config/cuckoo.yml', 'r') do |f|
+        YAML.load(f.read)
+      end
+    rescue
+      {}
     end
-    config_values
   end
 
   def setup
