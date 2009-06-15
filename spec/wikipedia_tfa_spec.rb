@@ -1,14 +1,7 @@
-require "spec"
-require "mocha"
+require File.join(File.dirname(__FILE__), 'spec_helper')
 
 dir = File.join(File.dirname(__FILE__), '..', 'lib')
-require File.join(dir, 'cuckoo_twitterer')
 require File.join(dir, 'modules', 'wikipedia_tfa')
-require File.join(dir, 'environments')
-
-Spec::Runner.configure do |config|
-  config.mock_with :mocha
-end
 
 class CuckooTwittererForWikipediaTfaSpec
 

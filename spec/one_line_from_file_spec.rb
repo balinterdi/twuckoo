@@ -1,10 +1,7 @@
-require "spec"
-require "mocha"
+require File.join(File.dirname(__FILE__), 'spec_helper')
 
 dir = File.join(File.dirname(__FILE__), '..', 'lib')
-require File.join(dir, 'cuckoo_twitterer')
 require File.join(dir, 'modules', 'one_line_from_file')
-require File.join(dir, 'environments')
 
 # use mocha for mocking instead of
 # Rspec's own mock framework

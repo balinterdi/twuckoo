@@ -1,7 +1,4 @@
-require "spec"
-dir = File.join(File.dirname(__FILE__), '..', 'lib')
-require File.join(dir, 'cuckoo_twitterer')
-require File.join(dir, 'environments')
+require File.join(File.dirname(__FILE__), 'spec_helper')
 
 class CuckooTwittererSpec
   extend CuckooEnvironment
