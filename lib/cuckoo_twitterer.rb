@@ -23,7 +23,8 @@ class CuckooTwitterer
       if testing?
         puts "(test) Tweeting #{next_tweet}"
       else
-        twitter.status(:post, next_tweet)
+        puts "(live) Tweeting #{next_tweet}"
+        # twitter.status(:post, next_tweet)
       end
     end
     next_tweet
