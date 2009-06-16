@@ -1,6 +1,5 @@
 bin/twuckoo
 CHANGELOG
-cuckoo_twitterer.gemspec
 lib/duration_string.rb
 lib/environments.rb
 lib/modules/one_line_from_file.rb
@@ -16,3 +15,4 @@ spec/spec_helper.rb
 spec/twuckoo_spec.rb
 spec/wikipedia_tfa_spec.rb
 tasks/spec.rake
+twuckoo.gemspec

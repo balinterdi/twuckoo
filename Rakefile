@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('twuckoo', '0.2') do |p|
+Echoe.new('twuckoo', '0.2.1') do |p|
   p.description    = "A simple yet elegant solution to tweet a message regularly from a file (and in the future: from a webpage, a database, etc.)"
   p.url            = "http://github.com/balinterdi/twuckoo"
   p.author         = "Bálint Érdi"
