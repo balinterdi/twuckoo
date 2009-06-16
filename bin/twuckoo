@@ -2,7 +2,7 @@
 
 dir = File.join(File.dirname(__FILE__), '..', 'lib')
 
-require File.join(dir, 'cuckoo_twitterer')
+require File.join(dir, 'twuckoo')
 
 Dir.glob(File.join(dir, 'modules', '*.rb')).each do |mod|
   require mod
@@ -19,7 +19,7 @@ else
   raise "No module to include was provided."
 end
 
-CuckooTwitterer.send(:include, module_to_include)
-@cuckoo = CuckooTwitterer.new
+Twuckoo.send(:include, module_to_include)
+@cuckoo = Twuckoo.new
 # @cuckoo.set_testing
 @cuckoo.run

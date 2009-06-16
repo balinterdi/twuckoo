@@ -1,4 +1,4 @@
-module CuckooEnvironment
+module TwuckooEnvironment
   def set_testing
     ENV["CUCKOO_ENV"] = "testing"
   end

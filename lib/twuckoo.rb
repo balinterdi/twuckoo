@@ -3,8 +3,8 @@ require File.join(File.dirname(__FILE__), 'environments')
 require File.join(File.dirname(__FILE__), 'duration_string')
 require 'twibot'
 
-class CuckooTwitterer
-  include CuckooEnvironment
+class Twuckoo
+  include TwuckooEnvironment
   # the idea is to include a module with a well-defined API with three methods:
   # - load_tweets
   # - next

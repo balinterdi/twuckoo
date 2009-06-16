@@ -9,15 +9,15 @@ Spec::Runner.configure do |config|
   config.mock_with :mocha
 end
 
-class CuckooTwittererWithOneLineFromFileSpec
+class TwuckooWithOneLineFromFileSpec
 
-  extend CuckooEnvironment
+  extend TwuckooEnvironment
   set_testing
 
   describe "A cuckoo twitterer with one line from a file" do
     before do
-      CuckooTwitterer.send(:include, OneLineFromFile)
-      @cuckoo = CuckooTwitterer.new
+      Twuckoo.send(:include, OneLineFromFile)
+      @cuckoo = Twuckoo.new
       # just so that no files will be written
       @cuckoo.stubs(:store).returns(nil)
     end

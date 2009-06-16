@@ -1,12 +1,12 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
-class CuckooTwittererSpec
-  extend CuckooEnvironment
+class TwuckooSpec
+  extend TwuckooEnvironment
   set_testing
 
-  describe "A cuckoo twitterer" do
+  describe "A twuckoo" do
     before do
-      @cuckoo = CuckooTwitterer.new
+      @cuckoo = Twuckoo.new
     end
 
     it "responds to tweet" do
