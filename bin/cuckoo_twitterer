@@ -8,7 +8,18 @@ Dir.glob(File.join(dir, 'modules', '*.rb')).each do |mod|
   require mod
 end
 
-CuckooTwitterer.send(:include, OneLineFromFile)
+module_to_include = case ARGV.first.downcase
+when "from_file"
+  OneLineFromFile
+when "file"
+  OneLineFromFile  
+when "wikipedia_tfa"
+  WikipediaTFA
+else
+  raise "No module to include was provided."
+end
+
+CuckooTwitterer.send(:include, module_to_include)
 @cuckoo = CuckooTwitterer.new
 # @cuckoo.set_testing
 @cuckoo.run

@@ -5,10 +5,13 @@ lib/cuckoo_twitterer.rb
 lib/duration_string.rb
 lib/environments.rb
 lib/modules/one_line_from_file.rb
+lib/modules/wikipedia_tfa.rb
 Manifest
 Rakefile
 spec/cuckoo_twitterer_spec.rb
 spec/duration_string_spec.rb
 spec/one_line_from_file_spec.rb
 spec/spec.opts
+spec/spec_helper.rb
+spec/wikipedia_tfa_spec.rb
 tasks/spec.rake
