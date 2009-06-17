@@ -22,17 +22,17 @@ It is very simple in its design but opens vast possibilities due to its modular 
 
 Twuckoo takes a modular approach. It defines a very simple API and expects modules to implement these API methods. The methods are:
 
-* load_tweets
+    * load_tweets
 
-    Loads the possible tweets that twuckoo will use when selecting the next one. This could be reading all lines from a file, for example.
+Loads the possible tweets that twuckoo will use when selecting the next one. This could be reading all lines from a file, for example.
     
-* next
+    * next
 
-    Fetches the next message to be tweeted. Usually the bulk of the "business logic" is implemented here. This could be scraping a web page and extracting a specific snippet of html.
+Fetches the next message to be tweeted. Usually the bulk of the "business logic" is implemented here. This could be scraping a web page and extracting a specific snippet of html.
     
-* store(tweet)
+    * store(tweet)
 
-    Hands the last tweeted message to be stored. In the case of the one\_line\_from_file module, this stores the tweet in a file so that no message is used multiple times.
+Hands the last tweeted message to be stored. In the case of the one\_line\_from_file module, this stores the tweet in a file so that no message is used multiple times.
     
 Twuckoo needs to be passed the name of the module to be used. At the moment there are two provided modules: 
 
@@ -61,7 +61,7 @@ For more options, see [twibot's README](http://github.com/cjohansen/twibot/tree/
 
 Currently the only thing you can set is the time to wait between tweets. By default, it is "1d", so the script will "relax" for 24 hours after tweeting. If you wish to change this value, just place the following in a config/cuckoo.yml:
 
-    time\_to\_sleep: 1h
+    time_to_sleep: 1h
 
 The value should be given in a human-comprehensible form. You can use any combination of weeks, days, hours, minutes and seconds, so 1w3d13h27m19s will work, too, although you probably do not want to be this precise :)
 
