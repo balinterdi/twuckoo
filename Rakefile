@@ -8,7 +8,7 @@ Echoe.new('twuckoo', '0.2.1') do |p|
   p.author         = "Bálint Érdi"
   p.email          = "balint@bucionrails.com"
   p.ignore_pattern = ["tmp/*", "script/*", "*.txt", "pkg"]
-  p.runtime_dependencies = ["twibot >=0.1.7"]
+  p.runtime_dependencies = ["twibot >=0.1.7", "hpricot >= 0.6.164"]
 end
 
 Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
