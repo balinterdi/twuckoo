@@ -1,9 +1,6 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 class TwuckooSpec
-  extend TwuckooEnvironment
-  set_testing
-
   describe "A twuckoo" do
     before do
       @twuckoo = Twuckoo.new

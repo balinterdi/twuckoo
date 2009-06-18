@@ -11,9 +11,6 @@ end
 
 class TwuckooWithOneLineFromFileSpec
 
-  extend TwuckooEnvironment
-  set_testing
-
   describe "A cuckoo twitterer with one line from a file" do
     before do
       Twuckoo.send(:include, OneLineFromFile)

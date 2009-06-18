@@ -4,7 +4,6 @@ require File.join(File.dirname(__FILE__), 'duration_string')
 require 'twibot'
 
 class Twuckoo
-  include TwuckooEnvironment
   # the idea is to include a module with a well-defined API with three methods:
   # - load_tweets
   # - next
@@ -62,10 +61,6 @@ class Twuckoo
   
   private
   def send_tweet(next_tweet)
-    if testing?
-      puts "(test) Tweeting #{next_tweet}"
-    else
-      twitter.status(:post, next_tweet)
-    end    
+    twitter.status(:post, next_tweet)
   end
 end

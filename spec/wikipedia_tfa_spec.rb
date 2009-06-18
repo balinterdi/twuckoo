@@ -5,9 +5,6 @@ require File.join(dir, 'modules', 'wikipedia_tfa')
 
 class TwuckooForWikipediaTfaSpec
 
-  extend TwuckooEnvironment
-  set_testing
-
   describe "A cuckoo twitterer for wikipedia featured article" do
     before do
       Twuckoo.send(:include, WikipediaTFA)
