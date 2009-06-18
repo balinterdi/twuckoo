@@ -11,10 +11,18 @@ class TwuckooForWikipediaTfaSpec
   describe "A cuckoo twitterer for wikipedia featured article" do
     before do
       Twuckoo.send(:include, WikipediaTFA)
-      @cuckoo = Twuckoo.new
+      @twuckoo = Twuckoo.new
     end
+    
     it "works" do
-      @cuckoo.tweet
+      @twuckoo.tweet
     end
+    
+    it "should not tweet the same thing twice subsequently" do
+      @twuckoo.expects(:get_last_tweet).returns("Twitter: http://en.wikipedia.org/wiki/Twitter")
+      @twuckoo.expects(:fetch_tfa).returns("Twitter: http://en.wikipedia.org/wiki/Twitter")
+      @twuckoo.expects(:send_tweet).never
+      @twuckoo.tweet
+    end    
   end
 end

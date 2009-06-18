@@ -18,13 +18,9 @@ class Twuckoo
 
   def tweet
     next_tweet = self.next
-    unless next_tweet.nil?
+    unless next_tweet.nil? or next_tweet.empty?
       store(next_tweet)
-      if testing?
-        puts "(test) Tweeting #{next_tweet}"
-      else
-        twitter.status(:post, next_tweet)
-      end
+      send_tweet(next_tweet)
     end
     next_tweet
   end
@@ -62,5 +58,14 @@ class Twuckoo
 
   def quit
     exit
+  end
+  
+  private
+  def send_tweet(next_tweet)
+    if testing?
+      puts "(test) Tweeting #{next_tweet}"
+    else
+      twitter.status(:post, next_tweet)
+    end    
   end
 end

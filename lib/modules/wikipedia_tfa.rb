@@ -1,24 +1,35 @@
 require "open-uri"
 require "hpricot"
 
+# Grabs the headline of Wikipedia's Today's Featured Article (TFA)
 module WikipediaTFA
-  
+
   WIKIPEDIA_HOST = "http://en.wikipedia.org"
-  
+
   def load_tweets
   end
 
   def store(line)
   end
 
-  def get_wikipedia_main_page
+  def fetch_main_page
     Hpricot(open("#{WIKIPEDIA_HOST}/wiki/Main_Page"))
   end
-  
-  def next
-    doc = get_wikipedia_main_page
+
+  def fetch_tfa
+    doc = fetch_main_page
     tfa = doc.at("#mp-tfa p b a")
     tfa_link = WIKIPEDIA_HOST + tfa["href"]
     "#{tfa.inner_html}: #{tfa_link}"
+  end
+
+  def next
+    prev_tweet = get_last_tweet
+    next_tweet = fetch_tfa
+    return prev_tweet == next_tweet ? '' : next_tweet
+  end
+  
+  private
+  def get_last_tweet    
   end
 end

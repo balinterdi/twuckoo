@@ -40,5 +40,6 @@ class TwuckooSpec
         @cuckoo.run
       end
     end
+
   end
 end
