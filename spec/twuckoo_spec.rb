@@ -6,38 +6,40 @@ class TwuckooSpec
 
   describe "A twuckoo" do
     before do
-      @cuckoo = Twuckoo.new
+      @twuckoo = Twuckoo.new
+      # actual text tweets should not be tweeted (twittered?)
+      @twuckoo.stubs(:send_tweet).returns(true)
     end
 
     it "responds to tweet" do
-      @cuckoo.should respond_to(:tweet)
+      @twuckoo.should respond_to(:tweet)
     end
 
     it "waits 1 day between tweets by default" do
-      @cuckoo.time_to_sleep.should == "1d"
+      @twuckoo.time_to_sleep.should == "1d"
     end
 
     describe "loading values from the config file" do
       it "sets the time interval to wait b/w tweets correctly" do
-        @cuckoo.expects(:get_config_values_from_file).returns({ :time_to_sleep => "3m" })
-        @cuckoo.setup
-        @cuckoo.time_to_sleep.should == "3m"
+        @twuckoo.expects(:get_config_values_from_file).returns({ :time_to_sleep => "3m" })
+        @twuckoo.setup
+        @twuckoo.time_to_sleep.should == "3m"
       end
     end
 
     describe "when there is nothing to tweet" do
       before do
-        @cuckoo.stubs(:next).returns(nil)
-        @cuckoo.stubs(:load_tweets).returns(nil)
+        @twuckoo.stubs(:next).returns(nil)
+        @twuckoo.stubs(:load_tweets).returns(nil)
       end
       it "does not call store" do
-        @cuckoo.expects(:store).never
-        @cuckoo.tweet
+        @twuckoo.expects(:store).never
+        @twuckoo.tweet
       end
       it "quits" do
         pending
-        @cuckoo.expects(:quit).once
-        @cuckoo.run
+        @twuckoo.expects(:quit).once
+        @twuckoo.run
       end
     end
 

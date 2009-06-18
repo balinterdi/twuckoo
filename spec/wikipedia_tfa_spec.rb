@@ -11,11 +11,9 @@ class TwuckooForWikipediaTfaSpec
   describe "A cuckoo twitterer for wikipedia featured article" do
     before do
       Twuckoo.send(:include, WikipediaTFA)
+      # actual text tweets should not be tweeted (twittered?)
+      @twuckoo.stubs(:send_tweet).returns(true)
       @twuckoo = Twuckoo.new
-    end
-    
-    it "works" do
-      @twuckoo.tweet
     end
     
     it "should not tweet the same thing twice subsequently" do
