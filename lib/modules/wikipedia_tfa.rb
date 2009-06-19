@@ -30,6 +30,8 @@ module WikipediaTFA
   end
   
   private
-  def get_last_tweet    
+  def get_last_tweet
+    last_tweet = twitter.timeline_for(:me).first
+    last_tweet.text if last_tweet
   end
 end
