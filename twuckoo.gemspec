@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twuckoo}
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["B\303\241lint \303\211rdi"]
-  s.date = %q{2009-06-16}
+  s.date = %q{2009-08-07}
   s.default_executable = %q{twuckoo}
   s.description = %q{A simple yet elegant solution to tweet a message regularly from a file (and in the future: from a webpage, a database, etc.)}
   s.email = %q{balint@bucionrails.com}
@@ -26,10 +26,16 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<twibot>, [">= 0.1.7"])
+      s.add_runtime_dependency(%q<hpricot>, [">= 0", "= 0.6.164"])
+      s.add_runtime_dependency(%q<mocha>, [">= 0", "= 0.9.5"])
     else
       s.add_dependency(%q<twibot>, [">= 0.1.7"])
+      s.add_dependency(%q<hpricot>, [">= 0", "= 0.6.164"])
+      s.add_dependency(%q<mocha>, [">= 0", "= 0.9.5"])
     end
   else
     s.add_dependency(%q<twibot>, [">= 0.1.7"])
+    s.add_dependency(%q<hpricot>, [">= 0", "= 0.6.164"])
+    s.add_dependency(%q<mocha>, [">= 0", "= 0.9.5"])
   end
 end

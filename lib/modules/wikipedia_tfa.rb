@@ -18,7 +18,7 @@ module WikipediaTFA
 
   def fetch_tfa
     doc = fetch_main_page
-    tfa = doc.at("#mp-tfa p b a")
+    tfa = doc.at("#mp-tfa b a")
     tfa_link = WIKIPEDIA_HOST + tfa["href"]
     "#{tfa.inner_html}: #{tfa_link}"
   end
