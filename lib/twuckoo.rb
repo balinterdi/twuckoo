@@ -8,20 +8,23 @@ class Twuckoo
   # - load_tweets
   # - next
   # - store(tweet)
-  attr_accessor :time_to_sleep
+  attr_writer :time_to_sleep
 
   def initialize
     @time_to_sleep = "1d"
     super
   end
 
-  def tweet
-    next_tweet = self.next
-    unless next_tweet.nil? or next_tweet.empty?
-      store(next_tweet)
-      send_tweet(next_tweet)
+  def time_to_sleep
+    @time_to_sleep
+  end
+
+  def tweet(message)
+    unless message.nil? or message.empty?
+      store(message)
+      send_tweet(message)
     end
-    next_tweet
+    message
   end
 
   def get_config_values_from_file
@@ -48,19 +51,21 @@ class Twuckoo
   def run
     setup
     load_tweets
-    loop do
-      tweeted = tweet
-      quit if tweeted.nil?
+    next_tweet = self.next
+    while next_tweet do
+      tweet(next_tweet)
       relax
+      next_tweet = self.next
+      send_email if next_tweet.nil?
     end
   end
 
-  def quit
-    exit
+  private
+  def send_tweet(message)
+    twitter.status(:post, message)
   end
   
-  private
-  def send_tweet(next_tweet)
-    twitter.status(:post, next_tweet)
+  def send_email
+    
   end
 end

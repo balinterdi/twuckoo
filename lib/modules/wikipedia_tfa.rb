@@ -26,9 +26,9 @@ module WikipediaTFA
   def next
     prev_tweet = get_last_tweet
     next_tweet = fetch_tfa
-    return prev_tweet == next_tweet ? '' : next_tweet
+    prev_tweet == next_tweet ? '' : next_tweet
   end
-  
+
   private
   def get_last_tweet
     last_tweet = twitter.timeline_for(:me).first
