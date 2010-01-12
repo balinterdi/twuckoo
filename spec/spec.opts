@@ -1,4 +1,5 @@
 --colour
 --loadby random
+-- format specdoc
 --format progress
 --backtrace

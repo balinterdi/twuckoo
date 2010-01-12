@@ -2,11 +2,13 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe "A cuckoo twitterer for wikipedia featured article" do
   before do
-    Twuckoo.send(:include, WikipediaTFA)
-    @twuckoo = Twuckoo.new
+    Twuckoo::Runner.send(:include, WikipediaTFA)
+    @twuckoo = Twuckoo::Runner.new
+    @twuckoo.setup do |config|
+      config[:time_to_sleep] = "1s"
+    end    
     # should not actually send out any tweets
     @twuckoo.stubs(:send_tweet).returns(true)
-    @twuckoo.stubs(:time_to_sleep).returns("1s")
     @twuckoo.stubs(:send_email).returns(true)
   end
 

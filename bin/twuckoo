@@ -19,7 +19,7 @@ else
   raise "No module to include was provided."
 end
 
-Twuckoo.send(:include, module_to_include)
-@cuckoo = Twuckoo.new
+Twuckoo::Runner.send(:include, module_to_include)
+@runner = Twuckoo::Runner.new
 # @cuckoo.set_testing
-@cuckoo.run
+@runner.run

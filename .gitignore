@@ -6,3 +6,4 @@ vendor/gems/ruby/**/gems
 vendor/gems/ruby/**/specifications
 vendor/gems/ruby/**/doc
 vendor/gems/ruby/**/environment.rb
+mail_proba.rb
