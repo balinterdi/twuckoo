@@ -62,8 +62,9 @@ describe Twuckoo::Runner do
       end
       @twuckoo.stubs(:next).returns("tweet me this").then.returns(nil)
     end
-    it "sends out an email with the specified recipient" do
-      @twuckoo.expects(:send_email).returns(true)
+    it "should send out a notification" do
+      @twuckoo.stubs(:send_email).returns(true)
+      @twuckoo.expects(:notify).once
       @twuckoo.run
     end
   end

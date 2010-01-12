@@ -4,12 +4,36 @@ class Twuckoo::Runner
   # - next
   # - store(tweet)
 
+  def run
+    setup_from_file
+    load_tweets
+    next_tweet = self.next
+    while next_tweet do
+      tweet(next_tweet)
+      wait if wait_between_tweets?
+      next_tweet = self.next
+      notify if next_tweet.nil?
+    end
+  end
+
   def initialize
     super
   end
 
+  def wait_between_tweets?
+    config[:time_to_sleep] != "0"
+  end
+
+  def wait
+    seconds_to_sleep = DurationString.to_seconds(config[:time_to_sleep])
+    sleep(seconds_to_sleep)
+  end
+
+  def notify
+    send_email(config)
+  end
+
   def config
-    #TODO: Config.new is more elegant and should work, too
     @config ||= ::Twuckoo::Config.new
   end
   
@@ -43,33 +67,13 @@ class Twuckoo::Runner
     end
   end
 
-  def wait_between_tweets?
-    config[:time_to_sleep] != "0"
-  end
-
-  def wait
-    seconds_to_sleep = DurationString.to_seconds(config[:time_to_sleep])
-    sleep(seconds_to_sleep)
-  end
-
-  def run
-    setup_from_file
-    load_tweets
-    next_tweet = self.next
-    while next_tweet do
-      tweet(next_tweet)
-      wait if wait_between_tweets?
-      next_tweet = self.next
-      send_email if next_tweet.nil?
-    end
-  end
-
   private
   def send_tweet(message)
     twitter.status(:post, message)
   end
 
-  def send_email
+  def send_email(config)
+    Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
     Mail.defaults do
       smtp do
         host "smtp.gmail.com"
