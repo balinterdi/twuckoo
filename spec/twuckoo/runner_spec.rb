@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
+require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
 describe Twuckoo::Runner do
   before do
@@ -9,6 +9,24 @@ describe Twuckoo::Runner do
 
   it "waits 1 day between tweets by default" do
     @twuckoo.config[:time_to_sleep].should == "1d"
+  end
+
+  it "should not wait between tweets if 0 is given for the time_to_sleep option" do
+    @twuckoo.setup do |config|
+      config[:time_to_sleep] = "0"
+    end
+    #TODO: write a custom matcher so this could be written as:
+    # @twuckoo.should_not wait_between_tweets
+    @twuckoo.wait_between_tweets?.should == false
+  end
+
+  it "should wait between tweets if a non-zero value is given for the time_to_sleep option" do
+    @twuckoo.setup do |config|
+      config[:time_to_sleep] = "1h"
+    end
+    #TODO: write a custom matcher so this could be written as:
+    # @twuckoo.should_not wait_between_tweets    
+    @twuckoo.wait_between_tweets?.should == true
   end
 
   it "can assign vars through the setup method" do
@@ -40,7 +58,7 @@ describe Twuckoo::Runner do
   describe "when there is nothing more to tweet after a while" do
     before do
       @twuckoo.setup do |config|
-        config[:time_to_sleep] = "1s"
+        config[:time_to_sleep] = "0"
       end
       @twuckoo.stubs(:next).returns("tweet me this").then.returns(nil)
     end

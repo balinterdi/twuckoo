@@ -43,7 +43,11 @@ class Twuckoo::Runner
     end
   end
 
-  def relax
+  def wait_between_tweets?
+    config[:time_to_sleep] != "0"
+  end
+
+  def wait
     seconds_to_sleep = DurationString.to_seconds(config[:time_to_sleep])
     sleep(seconds_to_sleep)
   end
@@ -54,7 +58,7 @@ class Twuckoo::Runner
     next_tweet = self.next
     while next_tweet do
       tweet(next_tweet)
-      relax
+      wait if wait_between_tweets?
       next_tweet = self.next
       send_email if next_tweet.nil?
     end

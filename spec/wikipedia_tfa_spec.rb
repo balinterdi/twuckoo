@@ -5,8 +5,8 @@ describe "A cuckoo twitterer for wikipedia featured article" do
     Twuckoo::Runner.send(:include, WikipediaTFA)
     @twuckoo = Twuckoo::Runner.new
     @twuckoo.setup do |config|
-      config[:time_to_sleep] = "1s"
-    end    
+      config[:time_to_sleep] = "0"
+    end
     # should not actually send out any tweets
     @twuckoo.stubs(:send_tweet).returns(true)
     @twuckoo.stubs(:send_email).returns(true)
