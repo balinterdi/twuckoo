@@ -1,8 +1,6 @@
-require "spec"
-dir = File.join(File.dirname(__FILE__), '..', 'lib')
-require File.join(dir, 'duration_string')
+require File.join(File.dirname(__FILE__), 'spec_helper')
 
-describe "a string representing a duration" do
+describe DurationString do
   it "gives back the number of seconds for seconds" do
     DurationString.to_seconds("17s").should == 17
   end

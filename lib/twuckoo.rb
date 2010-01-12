@@ -1,7 +1,12 @@
-require 'rubygems'
-require File.join(File.dirname(__FILE__), 'environments')
-require File.join(File.dirname(__FILE__), 'duration_string')
-require 'twibot'
+$:.unshift File.expand_path(File.dirname(__FILE__))
+
+require 'vendor/gems/environment'
+
+require 'environments'
+require 'duration_string'
+require 'modules'
+
+Bundler.require_env
 
 class Twuckoo
   # the idea is to include a module with a well-defined API with three methods:

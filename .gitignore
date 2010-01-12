@@ -2,3 +2,7 @@ lines.txt
 used_lines*.txt
 todos.txt
 pkg/
+vendor/gems/ruby/**/gems
+vendor/gems/ruby/**/specifications
+vendor/gems/ruby/**/doc
+vendor/gems/ruby/**/environment.rb
