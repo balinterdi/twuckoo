@@ -9,7 +9,7 @@ module OneLineFromFile
   LINES_FILE = 'lines.txt'
   USED_LINES_FILE = 'used_lines.txt'
 
-  def initialize
+  def initialize(args=[])
     @lines = []
     # load_lines
   end

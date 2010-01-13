@@ -1,25 +1,8 @@
 #!/usr/bin/env ruby
 
 dir = File.join(File.dirname(__FILE__), '..', 'lib')
-
 require File.join(dir, 'twuckoo')
 
-Dir.glob(File.join(dir, 'modules', '*.rb')).each do |mod|
-  require mod
-end
-
-module_to_include = case ARGV.first.downcase
-when "from_file"
-  OneLineFromFile
-when "file"
-  OneLineFromFile  
-when "wikipedia_tfa"
-  WikipediaTFA
-else
-  raise "No module to include was provided."
-end
-
-Twuckoo::Runner.send(:include, module_to_include)
-@runner = Twuckoo::Runner.new
-# @cuckoo.set_testing
+@runner = Twuckoo::Runner.new(ARGV)
+# @runner.set_testing
 @runner.run

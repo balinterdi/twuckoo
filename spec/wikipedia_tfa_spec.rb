@@ -2,8 +2,7 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe "A cuckoo twitterer for wikipedia featured article" do
   before do
-    Twuckoo::Runner.send(:include, WikipediaTFA)
-    @twuckoo = Twuckoo::Runner.new
+    @twuckoo = Twuckoo::Runner.new(["wikipedia_tfa"])
     @twuckoo.setup do |config|
       config[:time_to_sleep] = "0"
     end

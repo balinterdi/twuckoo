@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
 describe Twuckoo::Runner do
   before do
-    @twuckoo = Twuckoo::Runner.new
+    @twuckoo = Twuckoo::Runner.new(["file"])
     # actual text tweets should not be tweeted (twittered?)
     @twuckoo.stubs(:send_tweet).returns(true)
   end
@@ -36,6 +36,16 @@ describe Twuckoo::Runner do
     @twuckoo.config[:time_to_sleep].should == "3m"
   end
 
+  it "should receive the module to use as the last parameter" do
+    runner = Twuckoo::Runner.new(%w[file])
+    runner.used_module.should == OneLineFromFile    
+  end
+  
+  it "name can be given through the -n option" do
+    runner = Twuckoo::Runner.new(%w[-n pragthinklearn file])
+    runner.name.should == "pragthinklearn"
+  end
+  
   describe "loading values from the config file" do
     it "sets the time interval to wait b/w tweets correctly" do
       @twuckoo.expects(:get_config_values_from_file).returns({ :time_to_sleep => "3m" })

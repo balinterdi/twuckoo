@@ -7,3 +7,5 @@ vendor/gems/ruby/**/specifications
 vendor/gems/ruby/**/doc
 vendor/gems/ruby/**/environment.rb
 mail_proba.rb
+optparse_proba.rb
+super_proba.rb

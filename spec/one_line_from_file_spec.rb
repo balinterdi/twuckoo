@@ -2,8 +2,7 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe "A cuckoo twitterer with one line from a file" do
   before do
-    Twuckoo::Runner.send(:include, OneLineFromFile)
-    @twuckoo = Twuckoo::Runner.new
+    @twuckoo = Twuckoo::Runner.new(["file"])
     # just so that no files will be written
     @twuckoo.stubs(:store).returns(nil)
     # and the actual text tweets are not tweeted (twittered?)

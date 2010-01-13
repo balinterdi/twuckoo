@@ -1,8 +1,15 @@
+require "optparse"
+require "ostruct"
+
+class TwuckooException < Exception
+end
+
 class Twuckoo::Runner
   # the idea is to include a module with a well-defined API with three methods:
   # - load_tweets
   # - next
   # - store(tweet)
+  attr_reader :used_module
 
   def run
     setup_from_file
@@ -16,10 +23,47 @@ class Twuckoo::Runner
     end
   end
 
-  def initialize
+  def initialize(args=[])
+    if args.length.zero?
+      puts opts.banner
+      exit
+    end
+
+    _module = args.pop
+    use_module(get_module(_module))
+    
+    @options = OpenStruct.new
+    parse_options!(args)
     super
   end
 
+  def parse_options!(args)
+    
+    opts = OptionParser.new do |opts|
+      opts.banner = "Usage: twuckoo [options] module_to_use"
+      opts.on("-n name", "--name name",
+              "name will be the name of this twuckoo instance (used for email notifs)") do |name|
+        @options.name = name
+      end
+    end
+
+    opts.on_tail("-h", "--help", "Show this message") do
+      puts opts
+      exit
+    end
+
+    # opts.on_tail("--version", "Show version") do
+    #   File.read(...)
+    #   exit
+    # end
+
+    opts.parse!(args)    
+  end
+  
+  def name
+    @options.name
+  end
+  
   def wait_between_tweets?
     config[:time_to_sleep] != "0"
   end
@@ -32,10 +76,6 @@ class Twuckoo::Runner
   def notify
     send_email(config)
   end
-
-  def config
-    @config ||= ::Twuckoo::Config.new
-  end
   
   def tweet(message)
     unless message.nil? or message.empty?
@@ -43,6 +83,10 @@ class Twuckoo::Runner
       send_tweet(message)
     end
     message
+  end
+
+  def config
+    @config ||= ::Twuckoo::Config.new
   end
 
   def get_config_values_from_file(file='config/cuckoo.yml')
@@ -68,6 +112,24 @@ class Twuckoo::Runner
   end
 
   private
+  def get_module(module_id)
+    case module_id
+    when "file"
+      OneLineFromFile
+    when "from_file"
+      OneLineFromFile
+    when "wikipedia_tfa"
+      WikipediaTFA
+    else
+      raise TwuckooException, "Invalid module: #{module_id.inspect}"
+    end
+  end
+  
+  def use_module(_module)
+    @used_module = _module
+    self.class.class_eval { include _module }
+  end
+
   def send_tweet(message)
     twitter.status(:post, message)
   end

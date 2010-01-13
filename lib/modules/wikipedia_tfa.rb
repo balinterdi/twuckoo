@@ -5,6 +5,8 @@ require "hpricot"
 module WikipediaTFA
 
   WIKIPEDIA_HOST = "http://en.wikipedia.org"
+  def initialize(args=[])
+  end
 
   def load_tweets
   end
