@@ -23,32 +23,30 @@ class Twuckoo::Runner
     end
   end
 
-  def initialize(args=[])
-    if args.length.zero?
-      puts opts.banner
-      exit
-    end
-
-    _module = args.pop
-    use_module(get_module(_module))
-    
+  def initialize(args=[])    
     @options = OpenStruct.new
     parse_options!(args)
+
+    _module = args.pop
+    use_module(get_module(_module))    
     super
   end
 
   def parse_options!(args)
-    
     opts = OptionParser.new do |opts|
       opts.banner = "Usage: twuckoo [options] module_to_use"
       opts.on("-n name", "--name name",
               "name will be the name of this twuckoo instance (used for email notifs)") do |name|
         @options.name = name
       end
+      opts.on_tail("-h", "--help", "Show this message") do
+        puts opts
+        exit
+      end      
     end
 
-    opts.on_tail("-h", "--help", "Show this message") do
-      puts opts
+    if args.length.zero?
+      puts opts.banner
       exit
     end
 
