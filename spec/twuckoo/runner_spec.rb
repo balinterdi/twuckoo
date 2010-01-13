@@ -45,6 +45,11 @@ describe Twuckoo::Runner do
     runner = Twuckoo::Runner.new(%w[-n pragthinklearn file])
     runner.name.should == "pragthinklearn"
   end
+
+  it "if no is given, the directory name is used" do
+    runner = Twuckoo::Runner.new(%w[file])
+    runner.name.should == "twuckoo"
+  end
   
   describe "loading values from the config file" do
     it "sets the time interval to wait b/w tweets correctly" do

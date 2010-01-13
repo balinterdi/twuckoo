@@ -59,7 +59,7 @@ class Twuckoo::Runner
   end
   
   def name
-    @options.name
+    @options.name || File.split(File.dirname(__FILE__)).last
   end
   
   def wait_between_tweets?
