@@ -72,7 +72,7 @@ class Twuckoo::Runner
   end
 
   def notify
-    send_email(config)
+    send_email(name, config)
   end
   
   def tweet(message)
@@ -132,7 +132,7 @@ class Twuckoo::Runner
     twitter.status(:post, message)
   end
 
-  def send_email(config)
+  def send_email(name, config)
     Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
     Mail.defaults do
       smtp do
@@ -147,8 +147,8 @@ class Twuckoo::Runner
     Mail.deliver do
       from 'twuckoo@nowhere.com'
       to config[:email]
-      subject "[twuckoo]: nothing more to tweet"
-      body   "So please fill me up!"
+      subject %([twuckoo]: instance "#{name}" has nothing more to tweet)
+      body   "So please fill it up!"
     end
   end
 end
