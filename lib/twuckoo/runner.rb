@@ -1,5 +1,7 @@
 require "optparse"
 require "ostruct"
+require "twibot"
+require "mail"
 
 class TwuckooException < Exception
 end

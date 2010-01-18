@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".gitignore",
      "CHANGELOG",
+     "MIT-LICENSE",
      "Manifest",
      "README.markdown",
      "Rakefile",
@@ -68,12 +69,14 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<twibot>, [">= 0.1.7"])
       s.add_runtime_dependency(%q<hpricot>, [">= 0.6.164"])
       s.add_runtime_dependency(%q<mail>, [">= 1.6.0"])
+      s.add_runtime_dependency(%q<tlsmail>, [">= 0.0.1"])
     else
       s.add_dependency(%q<mocha>, [">= 0.9.5"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<twibot>, [">= 0.1.7"])
       s.add_dependency(%q<hpricot>, [">= 0.6.164"])
       s.add_dependency(%q<mail>, [">= 1.6.0"])
+      s.add_dependency(%q<tlsmail>, [">= 0.0.1"])
     end
   else
     s.add_dependency(%q<mocha>, [">= 0.9.5"])
@@ -81,6 +84,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<twibot>, [">= 0.1.7"])
     s.add_dependency(%q<hpricot>, [">= 0.6.164"])
     s.add_dependency(%q<mail>, [">= 1.6.0"])
+    s.add_dependency(%q<tlsmail>, [">= 0.0.1"])
   end
 end
 

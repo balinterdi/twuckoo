@@ -16,6 +16,7 @@ begin
     gemspec.add_dependency("twibot", ">=0.1.7")
     gemspec.add_dependency("hpricot", ">= 0.6.164")
     gemspec.add_dependency("mail", ">= 1.6.0")
+    gemspec.add_dependency("tlsmail", ">= 0.0.1")
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
