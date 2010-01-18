@@ -9,28 +9,20 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Balint Erdi"]
-  s.date = %q{2010-01-15}
+  s.date = %q{2010-01-18}
   s.description = %q{      A simple yet elegant solution to tweet a message regularly from a file (from a webpage, a database, etc.)
 }
   s.email = %q{balint.erdi@gmail.com}
-  s.executables = ["edit_json.rb", "jeweler", "prettify_json.rb", "rubyforge", "t4rsh", "twuckoo"]
   s.extra_rdoc_files = [
     "README.markdown"
   ]
   s.files = [
     ".gitignore",
      "CHANGELOG",
-     "Gemfile",
      "Manifest",
      "README.markdown",
      "Rakefile",
      "VERSION",
-     "bin/edit_json.rb",
-     "bin/jeweler",
-     "bin/prettify_json.rb",
-     "bin/rubyforge",
-     "bin/t4rsh",
-     "bin/twuckoo",
      "lib/duration_string.rb",
      "lib/environments.rb",
      "lib/modules.rb",
@@ -47,21 +39,7 @@ Gem::Specification.new do |s|
      "spec/twuckoo/runner_spec.rb",
      "spec/wikipedia_tfa_spec.rb",
      "tasks/spec.rake",
-     "twuckoo.gemspec",
-     "vendor/gems/environment.rb",
-     "vendor/gems/ruby/1.8/cache/activesupport-2.3.5.gem",
-     "vendor/gems/ruby/1.8/cache/gemcutter-0.3.0.gem",
-     "vendor/gems/ruby/1.8/cache/git-1.2.5.gem",
-     "vendor/gems/ruby/1.8/cache/hpricot-0.8.2.gem",
-     "vendor/gems/ruby/1.8/cache/jeweler-1.4.0.gem",
-     "vendor/gems/ruby/1.8/cache/json-1.2.0.gem",
-     "vendor/gems/ruby/1.8/cache/json_pure-1.2.0.gem",
-     "vendor/gems/ruby/1.8/cache/mail-1.5.2.gem",
-     "vendor/gems/ruby/1.8/cache/mail-1.5.3.gem",
-     "vendor/gems/ruby/1.8/cache/mbbx6spp-twitter4r-0.4.0.gem",
-     "vendor/gems/ruby/1.8/cache/mime-types-1.16.gem",
-     "vendor/gems/ruby/1.8/cache/rubyforge-2.0.3.gem",
-     "vendor/gems/ruby/1.8/cache/twibot-0.1.7.gem"
+     "twuckoo.gemspec"
   ]
   s.homepage = %q{http://github.com/balinterdi/twuckoo}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -82,9 +60,24 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<mocha>, [">= 0.9.5"])
+      s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_runtime_dependency(%q<twibot>, [">= 0.1.7"])
+      s.add_runtime_dependency(%q<hpricot>, [">= 0.6.164"])
+      s.add_runtime_dependency(%q<mail>, [">= 1.6.0"])
     else
+      s.add_dependency(%q<mocha>, [">= 0.9.5"])
+      s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<twibot>, [">= 0.1.7"])
+      s.add_dependency(%q<hpricot>, [">= 0.6.164"])
+      s.add_dependency(%q<mail>, [">= 1.6.0"])
     end
   else
+    s.add_dependency(%q<mocha>, [">= 0.9.5"])
+    s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<twibot>, [">= 0.1.7"])
+    s.add_dependency(%q<hpricot>, [">= 0.6.164"])
+    s.add_dependency(%q<mail>, [">= 1.6.0"])
   end
 end
 

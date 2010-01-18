@@ -11,6 +11,11 @@ begin
     gemspec.email = "balint.erdi@gmail.com"
     gemspec.homepage = "http://github.com/balinterdi/twuckoo"
     gemspec.authors = ["Balint Erdi"]
+    gemspec.add_development_dependency("mocha",  ">= 0.9.5")
+    gemspec.add_development_dependency("rspec")
+    gemspec.add_dependency("twibot", ">=0.1.7")
+    gemspec.add_dependency("hpricot", ">= 0.6.164")
+    gemspec.add_dependency("mail", ">= 1.6.0")
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

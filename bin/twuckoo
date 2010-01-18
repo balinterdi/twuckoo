@@ -1,8 +1,0 @@
-#!/usr/bin/env ruby
-
-dir = File.join(File.dirname(__FILE__), '..', 'lib')
-require File.join(dir, 'twuckoo')
-
-@runner = Twuckoo::Runner.new(ARGV)
-# @runner.set_testing
-@runner.run
