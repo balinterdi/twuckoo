@@ -10,9 +10,11 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Balint Erdi"]
   s.date = %q{2010-01-18}
+  s.default_executable = %q{twuckoo}
   s.description = %q{      A simple yet elegant solution to tweet a message regularly from a file (from a webpage, a database, etc.)
 }
   s.email = %q{balint.erdi@gmail.com}
+  s.executables = ["twuckoo"]
   s.extra_rdoc_files = [
     "README.markdown"
   ]
@@ -23,6 +25,7 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION",
+     "bin/twuckoo",
      "lib/duration_string.rb",
      "lib/environments.rb",
      "lib/modules.rb",
