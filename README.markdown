@@ -69,7 +69,7 @@ By default, it is "1d", so the script will "relax" for 24 hours after tweeting. 
   * password
   * email
   
-When twuckoo is out of messages to tweet, it quits. Most of the times you'll want to get notified of this, though, so you can take action (e.g refill it and relaunch). If the above options are set, twuckoo sends an email to `email`, using the `user` and `password` credentials for gmail authentication. (Yes, currently only gmail is supported, I'll change that shortly.)
+When twuckoo is out of messages to tweet, it quits. Most of the times you'll want to get notified of this, though, so you can take action (e.g refill it and relaunch). If the above options are set, twuckoo sends an email to `email`, using the `user` and `password` credentials for gmail authentication. (Yes, currently only gmail is supported, I am planning to change that in a next version.)
 
 ## Running
 
