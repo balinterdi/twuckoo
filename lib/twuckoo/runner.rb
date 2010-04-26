@@ -11,26 +11,39 @@ class Twuckoo::Runner
   # - load_tweets
   # - next
   # - store(tweet)
-  attr_reader :used_module
 
   def run
     setup_from_file
     load_tweets
     next_tweet = self.next
-    while next_tweet do
+    while (next_tweet and !tweet_limit_reached?) do
       tweet(next_tweet)
+      inc_tweet_counter
       wait if wait_between_tweets?
       next_tweet = self.next
-      notify if next_tweet.nil?
+      if next_tweet.nil?
+        notify
+        reset
+        next_tweet = self.next
+      end
     end
   end
 
-  def initialize(args=[])    
+  def self.create(args=[])
+    module_name = args.first
+    unless module_name.nil?
+      _module = get_module(module_name)
+      class_eval { include _module }
+    end
+    new(args)
+  end
+
+  attr_accessor :tweets_sent
+
+  def initialize(args=[])
+    @tweets_sent = 0
     @options = OpenStruct.new
     parse_options!(args)
-
-    _module = args.pop
-    use_module(get_module(_module))    
     super
   end
 
@@ -44,7 +57,7 @@ class Twuckoo::Runner
       opts.on_tail("-h", "--help", "Show this message") do
         puts opts
         exit
-      end      
+      end
     end
 
     if args.length.zero?
@@ -57,13 +70,13 @@ class Twuckoo::Runner
     #   exit
     # end
 
-    opts.parse!(args)    
+    opts.parse!(args)
   end
-  
+
   def name
     @options.name || File.split(File.dirname(__FILE__)).last
   end
-  
+
   def wait_between_tweets?
     config[:time_to_sleep] != "0"
   end
@@ -76,7 +89,7 @@ class Twuckoo::Runner
   def notify
     send_email(name, config)
   end
-  
+
   def tweet(message)
     unless message.nil? or message.empty?
       store(message)
@@ -112,8 +125,8 @@ class Twuckoo::Runner
   end
 
   private
-  def get_module(module_id)
-    case module_id
+  def self.get_module(module_name)
+    case module_name
     when "file"
       OneLineFromFile
     when "from_file"
@@ -121,17 +134,20 @@ class Twuckoo::Runner
     when "wikipedia_tfa"
       WikipediaTFA
     else
-      raise TwuckooException, "Invalid module: #{module_id.inspect}"
+      raise TwuckooException, "Invalid module: #{module_name.inspect}"
     end
-  end
-  
-  def use_module(_module)
-    @used_module = _module
-    self.class.class_eval { include _module }
   end
 
   def send_tweet(message)
     twitter.status(:post, message)
+  end
+
+  def inc_tweet_counter
+    @tweets_sent += 1
+  end
+
+  def tweet_limit_reached?
+    !config[:tweet_limit].zero? and config[:tweet_limit].to_i == tweets_sent
   end
 
   def send_email(name, config)

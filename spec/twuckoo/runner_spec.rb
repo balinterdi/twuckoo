@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
 describe Twuckoo::Runner do
   before do
-    @twuckoo = Twuckoo::Runner.new(["file"])
+    @twuckoo = Twuckoo::Runner.create(["file"])
     # actual text tweets should not be tweeted (twittered?)
     @twuckoo.stubs(:send_tweet).returns(true)
   end
@@ -25,7 +25,7 @@ describe Twuckoo::Runner do
       config[:time_to_sleep] = "1h"
     end
     #TODO: write a custom matcher so this could be written as:
-    # @twuckoo.should_not wait_between_tweets    
+    # @twuckoo.should_not wait_between_tweets
     @twuckoo.wait_between_tweets?.should == true
   end
 
@@ -36,11 +36,22 @@ describe Twuckoo::Runner do
     @twuckoo.config[:time_to_sleep].should == "3m"
   end
 
+  it "can be made to tweet only a certain number of times" do
+    @twuckoo.stubs(:store).returns(nil)
+    @twuckoo.stubs(:wait_between_tweets?).returns(false)
+    @twuckoo.stubs(:next).returns("tweet me this")
+    @twuckoo.setup do |config|
+      config[:tweet_limit] = 2
+    end
+    @twuckoo.expects(:tweet).times(2)
+    @twuckoo.run
+  end
+
   it "should receive the module to use as the last parameter" do
     runner = Twuckoo::Runner.new(%w[file])
-    runner.used_module.should == OneLineFromFile    
+    runner.should respond_to(:reset)
   end
-  
+
   it "name can be given through the -n option" do
     runner = Twuckoo::Runner.new(%w[-n pragthinklearn file])
     runner.name.should == "pragthinklearn"
@@ -50,7 +61,7 @@ describe Twuckoo::Runner do
     runner = Twuckoo::Runner.new(%w[file])
     runner.name.should == "twuckoo"
   end
-  
+
   describe "loading values from the config file" do
     it "sets the time interval to wait b/w tweets correctly" do
       @twuckoo.expects(:get_config_values_from_file).returns({ :time_to_sleep => "3m" })
@@ -59,17 +70,6 @@ describe Twuckoo::Runner do
     end
   end
 
-  describe "when there is nothing to tweet" do
-    before do
-      @twuckoo.stubs(:next).returns(nil)
-      @twuckoo.stubs(:load_tweets).returns(nil)
-    end
-    it "does not call store" do
-      @twuckoo.expects(:store).never
-      @twuckoo.run
-    end
-  end
-  
   describe "when there is nothing more to tweet after a while" do
     before do
       @twuckoo.setup do |config|
@@ -83,5 +83,5 @@ describe Twuckoo::Runner do
       @twuckoo.run
     end
   end
-  
+
 end

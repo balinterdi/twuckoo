@@ -2,11 +2,15 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe "A cuckoo twitterer with one line from a file" do
   before do
-    @twuckoo = Twuckoo::Runner.new(["file"])
+    @twuckoo = Twuckoo::Runner.create(["file"])
     # just so that no files will be written
     @twuckoo.stubs(:store).returns(nil)
     # and the actual text tweets are not tweeted (twittered?)
     @twuckoo.stubs(:send_tweet).returns(true)
+    @twuckoo.stubs(:send_email).returns(true)
+    @twuckoo.setup do |config|
+      config[:time_to_sleep] = "0"
+    end
   end
 
   it "stores a line that was sent to it correctly" do
@@ -85,4 +89,33 @@ describe "A cuckoo twitterer with one line from a file" do
       end
     end
   end
+
+  describe "when there is nothing left to tweet" do
+    before do
+      @twuckoo.stubs(:next).returns("tweet me this").then.returns(nil)
+      @twuckoo.stubs(:load_tweets).returns(nil)
+    end
+
+    it "does not call store" do
+      @twuckoo.expects(:store).once
+      @twuckoo.run
+    end
+
+    it "calls reset" do
+      @twuckoo.expects(:reset).once
+      @twuckoo.run
+    end
+
+  end
+
+  it "loads the lines when reset" do
+    pending
+    @twuckoo.stubs(:get_unused_lines).returns(["tweet me this", "tweet me that"])
+    @twuckoo.setup do |config|
+      config[:tweet_limit] = 2
+    end
+    @twuckoo.expects(:tweet).times(5)
+    @twuckoo.run
+  end
+
 end

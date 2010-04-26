@@ -17,7 +17,7 @@ module OneLineFromFile
   def load_tweets
     load_lines
   end
-  
+
   def get_lines_from_file
     begin
       IO::readlines(LINES_FILE).map { |line| line.chomp }
@@ -42,10 +42,12 @@ module OneLineFromFile
     @used_lines ||=  get_used_lines_from_file
   end
 
+  def get_unused_lines
+    get_all_lines.reject { |line| get_used_lines.include?(line) }
+  end
+
   def load_lines
-    used = get_used_lines
-    unused_lines = get_all_lines.select { |line| !used.include?(line) }
-    add_lines(*unused_lines)
+    add_lines(*get_unused_lines)
   end
 
   def add_lines(*new_lines)
@@ -66,5 +68,10 @@ module OneLineFromFile
     @lines.delete_at(pick)
   end
 
+  def reset
+    File.delete(USED_LINES_FILE) rescue nil
+    @used_lines = nil
+    load_lines
+  end
 end
 
