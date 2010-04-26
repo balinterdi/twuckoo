@@ -6,7 +6,7 @@ begin
     gemspec.name = "twuckoo"
     gemspec.summary = "Need to tweet periodically in an automated fashion? Then Twuckoo is for you!"
     gemspec.description = <<-EOF
-      A simple yet elegant solution to tweet a message regularly from a file (from a webpage, a database, etc.)
+      A simple yet elegant solution to tweet a message regularly from a file (or from a webpage, a database, etc.)
     EOF
     gemspec.email = "balint.erdi@gmail.com"
     gemspec.homepage = "http://github.com/balinterdi/twuckoo"

@@ -5,13 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twuckoo}
-  s.version = "0.3.5"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Balint Erdi"]
-  s.date = %q{2010-01-18}
+  s.date = %q{2010-04-26}
   s.default_executable = %q{twuckoo}
-  s.description = %q{      A simple yet elegant solution to tweet a message regularly from a file (from a webpage, a database, etc.)
+  s.description = %q{      A simple yet elegant solution to tweet a message regularly from a file (or from a webpage, a database, etc.)
 }
   s.email = %q{balint.erdi@gmail.com}
   s.executables = ["twuckoo"]
@@ -48,7 +48,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/balinterdi/twuckoo}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Need to tweet periodically in an automated fashion? Then Twuckoo is for you!}
   s.test_files = [
     "spec/duration_string_spec.rb",
