@@ -108,14 +108,4 @@ describe "A cuckoo twitterer with one line from a file" do
 
   end
 
-  it "loads the lines when reset" do
-    pending
-    @twuckoo.stubs(:get_unused_lines).returns(["tweet me this", "tweet me that"])
-    @twuckoo.setup do |config|
-      config[:tweet_limit] = 2
-    end
-    @twuckoo.expects(:tweet).times(5)
-    @twuckoo.run
-  end
-
 end

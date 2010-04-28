@@ -74,7 +74,7 @@ class Twuckoo::Runner
   end
 
   def name
-    @options.name || File.split(__FILE__).last
+    @options.name || File.split(File.dirname(__FILE__)).last
   end
 
   def wait_between_tweets?
@@ -165,8 +165,8 @@ class Twuckoo::Runner
     Mail.deliver do
       from 'twuckoo@nowhere.com'
       to config[:email]
-      subject %([twuckoo]: instance "#{name}" has nothing more to tweet)
-      body   "So please fill it up!"
+      subject %([twuckoo]: instance "#{name}" has done a reset)
+      body   "And is now going full speed again."
     end
   end
 end

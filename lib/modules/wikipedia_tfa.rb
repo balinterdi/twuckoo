@@ -8,11 +8,9 @@ module WikipediaTFA
   def initialize(args=[])
   end
 
-  def load_tweets
-  end
-
-  def store(line)
-  end
+  def load_tweets; end
+  def store(line); end
+  def reset; end
 
   def fetch_main_page
     Hpricot(open("#{WIKIPEDIA_HOST}/wiki/Main_Page"))
