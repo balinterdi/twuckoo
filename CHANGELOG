@@ -1,4 +1,4 @@
-v0.4.1  Reset initial state when running out of things to tweet and send email about it. Tweet limit: tweets this many lines and then quits. Config file renamed to twuckoo.yml
+v0.4.2  Reset initial state when running out of things to tweet and send email about it. Tweet limit: tweets this many lines and then quits. Config file renamed to twuckoo.yml
 v0.2.2  Minor modification because of changed Wikipedia TFA markup
 v0.2    Wikipedia TFA module, command line argument decides which file to include
 v0.1.3  Length of sleeping interval settable from config
