@@ -74,7 +74,7 @@ class Twuckoo::Runner
   end
 
   def name
-    @options.name || File.split(File.dirname(__FILE__)).last
+    @options.name || File.split(__FILE__).last
   end
 
   def wait_between_tweets?
@@ -102,7 +102,7 @@ class Twuckoo::Runner
     @config ||= ::Twuckoo::Config.new
   end
 
-  def get_config_values_from_file(file='config/cuckoo.yml')
+  def get_config_values_from_file(file='config/twuckoo.yml')
     begin
       open(file, 'r') do |f|
         YAML.load(f.read)
@@ -119,7 +119,7 @@ class Twuckoo::Runner
   def setup_from_file
     setup do |config|
       get_config_values_from_file.each_pair do |attr, value|
-        config[attr] = value
+        config[attr.to_sym] = value
       end
     end
   end
