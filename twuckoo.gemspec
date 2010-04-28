@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twuckoo}
-  s.version = "0.4.0"
+  s.version = "0.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Balint Erdi"]
-  s.date = %q{2010-04-26}
+  s.date = %q{2010-04-28}
   s.default_executable = %q{twuckoo}
   s.description = %q{      A simple yet elegant solution to tweet a message regularly from a file (or from a webpage, a database, etc.)
 }
