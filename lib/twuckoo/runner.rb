@@ -1,6 +1,5 @@
 require "optparse"
 require "ostruct"
-require "twibot"
 require "mail"
 
 class TwuckooException < Exception
@@ -18,7 +17,6 @@ class Twuckoo::Runner
     next_tweet = self.next
     while (next_tweet and !tweet_limit_reached?) do
       tweet(next_tweet)
-      inc_tweet_counter
       wait if wait_between_tweets?
       next_tweet = self.next
       if next_tweet.nil?
@@ -29,22 +27,18 @@ class Twuckoo::Runner
     end
   end
 
-  def self.create(args=[])
-    module_name = args.first
-    unless module_name.nil?
-      _module = get_module(module_name)
-      class_eval { include _module }
-    end
-    new(args)
-  end
-
   attr_accessor :tweets_sent
 
-  def initialize(args=[])
+  def initialize(module_name, twitter_module=nil, args=[])
+    unless module_name.nil?
+      _module = self.class.get_module(module_name)
+      class_eval { include _module }
+    end
     @tweets_sent = 0
+    @twitter_module = twitter_module.nil? ? Twuckoo::Twibot : twitter_module
     @options = OpenStruct.new
     parse_options!(args)
-    super
+    setup_for_module
   end
 
   def parse_options!(args)
@@ -58,11 +52,6 @@ class Twuckoo::Runner
         puts opts
         exit
       end
-    end
-
-    if args.length.zero?
-      puts opts.banner
-      exit
     end
 
     # opts.on_tail("--version", "Show version") do
@@ -92,8 +81,14 @@ class Twuckoo::Runner
 
   def tweet(message)
     unless message.nil? or message.empty?
-      store(message)
-      send_tweet(message)
+      begin
+        send_tweet(message)
+      rescue @twitter_module.exception
+        return message
+      else
+        inc_tweet_counter
+        store(message)
+      end
     end
     message
   end
@@ -139,7 +134,7 @@ class Twuckoo::Runner
   end
 
   def send_tweet(message)
-    twitter.status(:post, message)
+    @twitter_module._tweet(message)
   end
 
   def inc_tweet_counter
@@ -169,4 +164,7 @@ class Twuckoo::Runner
       body   "And is now going full speed again."
     end
   end
+end
+
+module Twibot
 end

@@ -9,9 +9,8 @@ module OneLineFromFile
   LINES_FILE = 'lines.txt'
   USED_LINES_FILE = 'used_lines.txt'
 
-  def initialize(args=[])
+  def setup_for_module
     @lines = []
-    # load_lines
   end
 
   def load_tweets

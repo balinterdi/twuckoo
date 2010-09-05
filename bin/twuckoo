@@ -3,6 +3,6 @@
 dir = File.join(File.dirname(__FILE__), '..', 'lib')
 require File.join(dir, 'twuckoo')
 
-@runner = Twuckoo::Runner.create(ARGV)
+@runner = Twuckoo::Runner.new(ARGV.shift, Twuckoo::Twibot, ARGV)
 # @runner.set_testing
 @runner.run

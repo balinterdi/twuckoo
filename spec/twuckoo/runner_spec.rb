@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
 describe Twuckoo::Runner do
   before do
-    @twuckoo = Twuckoo::Runner.create(["file"])
+    @twuckoo = Twuckoo::Runner.new("file")
     # actual text tweets should not be tweeted (twittered?)
     @twuckoo.stubs(:send_tweet).returns(true)
   end
@@ -43,22 +43,22 @@ describe Twuckoo::Runner do
     @twuckoo.setup do |config|
       config[:tweet_limit] = 2
     end
-    @twuckoo.expects(:tweet).times(2)
+    @twuckoo.expects(:send_tweet).times(2).returns("tweet me this")
     @twuckoo.run
   end
 
   it "should receive the module to use as the last parameter" do
-    runner = Twuckoo::Runner.new(%w[file])
+    runner = Twuckoo::Runner.new('file')
     runner.should respond_to(:reset)
   end
 
   it "name can be given through the -n option" do
-    runner = Twuckoo::Runner.new(%w[-n pragthinklearn file])
+    runner = Twuckoo::Runner.new('file', nil, %w[-n pragthinklearn])
     runner.name.should == "pragthinklearn"
   end
 
-  it "if no is given, the directory name is used" do
-    runner = Twuckoo::Runner.new(%w[file])
+  it "if no name is given, the directory name is used" do
+    runner = Twuckoo::Runner.new('file')
     runner.name.should == "twuckoo"
   end
 
@@ -84,4 +84,35 @@ describe Twuckoo::Runner do
     end
   end
 
+  it "tries tweeting again if Twitter is not available" do
+    module ShakyTwitter
+      i = 0
+      define_method :_tweet do |message|
+        if i == 0
+          i = i + 1
+          raise ShakyTwitterException, "Twitter is down. Try again later"
+        else
+          i = i + 1
+          message
+        end
+      end
+
+      extend self
+
+      class ShakyTwitterException < Exception
+      end
+      def self.exception
+        ShakyTwitterException
+      end
+    end
+    twuckoo = Twuckoo::Runner.new("file", ShakyTwitter)
+    twuckoo.stubs(:send_email).returns(true)
+    twuckoo.setup do |config|
+      config[:tweet_limit] = 2
+      config[:time_to_sleep] = "0"
+    end
+    twuckoo.stubs(:next).returns('Twuckoo 2.0 is coming soonish')
+    twuckoo.run
+    twuckoo.tweets_sent.should == 2
+  end
 end
