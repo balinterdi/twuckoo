@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{twuckoo}
-  s.version = "0.4.2"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Balint Erdi"]
-  s.date = %q{2010-04-28}
+  s.date = %q{2010-09-12}
   s.default_executable = %q{twuckoo}
   s.description = %q{      A simple yet elegant solution to tweet a message regularly from a file (or from a webpage, a database, etc.)
 }
@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
      "lib/twuckoo.rb",
      "lib/twuckoo/config.rb",
      "lib/twuckoo/runner.rb",
+     "lib/twuckoo/twitter_oauth_module.rb",
      "spec/duration_string_spec.rb",
      "spec/one_line_from_file_spec.rb",
      "spec/spec.opts",
@@ -48,7 +49,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/balinterdi/twuckoo}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{Need to tweet periodically in an automated fashion? Then Twuckoo is for you!}
   s.test_files = [
     "spec/duration_string_spec.rb",
@@ -63,17 +64,17 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<mocha>, [">= 0.9.5"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_runtime_dependency(%q<twibot>, [">= 0.1.7"])
+      s.add_runtime_dependency(%q<twitter_oauth>, ["~> 0.4.3"])
       s.add_runtime_dependency(%q<hpricot>, [">= 0.6.164"])
       s.add_runtime_dependency(%q<mail>, [">= 1.6.0"])
       s.add_runtime_dependency(%q<tlsmail>, [">= 0.0.1"])
     else
       s.add_dependency(%q<mocha>, [">= 0.9.5"])
       s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<twibot>, [">= 0.1.7"])
+      s.add_dependency(%q<twitter_oauth>, ["~> 0.4.3"])
       s.add_dependency(%q<hpricot>, [">= 0.6.164"])
       s.add_dependency(%q<mail>, [">= 1.6.0"])
       s.add_dependency(%q<tlsmail>, [">= 0.0.1"])
@@ -81,7 +82,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<mocha>, [">= 0.9.5"])
     s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<twibot>, [">= 0.1.7"])
+    s.add_dependency(%q<twitter_oauth>, ["~> 0.4.3"])
     s.add_dependency(%q<hpricot>, [">= 0.6.164"])
     s.add_dependency(%q<mail>, [">= 1.6.0"])
     s.add_dependency(%q<tlsmail>, [">= 0.0.1"])
