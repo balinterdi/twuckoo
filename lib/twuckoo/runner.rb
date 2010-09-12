@@ -35,7 +35,7 @@ class Twuckoo::Runner
       class_eval { include _module }
     end
     @tweets_sent = 0
-    @twitter_module = twitter_module.nil? ? Twuckoo::Twibot : twitter_module
+    @twitter_module = twitter_module.nil? ? Twuckoo::TwitterOauth : twitter_module
     @options = OpenStruct.new
     parse_options!(args)
     setup_for_module
@@ -82,7 +82,7 @@ class Twuckoo::Runner
   def tweet(message)
     unless message.nil? or message.empty?
       begin
-        send_tweet(message)
+        send_tweet(message, config)
       rescue @twitter_module.exception
         return message
       else
@@ -133,8 +133,8 @@ class Twuckoo::Runner
     end
   end
 
-  def send_tweet(message)
-    @twitter_module._tweet(message)
+  def send_tweet(message, options)
+    @twitter_module._tweet(message, options)
   end
 
   def inc_tweet_counter
@@ -164,7 +164,4 @@ class Twuckoo::Runner
       body   "And is now going full speed again."
     end
   end
-end
-
-module Twibot
 end

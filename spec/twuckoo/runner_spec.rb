@@ -87,7 +87,7 @@ describe Twuckoo::Runner do
   it "tries tweeting again if Twitter is not available" do
     module ShakyTwitter
       i = 0
-      define_method :_tweet do |message|
+      define_method :_tweet do |message, options|
         if i == 0
           i = i + 1
           raise ShakyTwitterException, "Twitter is down. Try again later"

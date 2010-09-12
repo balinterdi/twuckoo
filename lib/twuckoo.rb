@@ -10,4 +10,4 @@ require 'modules'
 
 require 'twuckoo/config'
 require 'twuckoo/runner'
-require 'twuckoo/twibot_module'
+require 'twuckoo/twitter_oauth_module'

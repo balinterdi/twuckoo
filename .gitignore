@@ -1,3 +1,4 @@
+config/twuckoo.yml
 lines.txt
 used_lines*.txt
 todos.txt
@@ -6,6 +7,5 @@ vendor/gems/ruby/**/gems
 vendor/gems/ruby/**/specifications
 vendor/gems/ruby/**/doc
 vendor/gems/ruby/**/environment.rb
-mail_proba.rb
-optparse_proba.rb
-super_proba.rb
+*_proba.rb
+oauth/
