@@ -83,7 +83,7 @@ class Twuckoo::Runner
     unless message.nil? or message.empty?
       begin
         send_tweet(message, config)
-      rescue @twitter_module.exception
+      rescue twitter_module.exception
         return message
       else
         inc_tweet_counter
@@ -133,8 +133,12 @@ class Twuckoo::Runner
     end
   end
 
+  def twitter_module
+    @twitter_module
+  end
+
   def send_tweet(message, options)
-    @twitter_module._tweet(message, options)
+    twitter_module._tweet(message, options)
   end
 
   def inc_tweet_counter

@@ -12,10 +12,9 @@ describe "A cuckoo twitterer for wikipedia featured article" do
   end
 
   it "should not tweet the same thing twice subsequently" do
-    @twuckoo.stubs(:get_last_tweet).returns("Twitter: http://en.wikipedia.org/wiki/Twitter")
-    @twuckoo.stubs(:fetch_tfa).returns("Twitter: http://en.wikipedia.org/wiki/Twitter")
-    @twuckoo.stubs(:next).returns(@twuckoo.get_last_tweet).then.
-                         returns(@twuckoo.fetch_tfa).then.
+    article_url = "Twitter: http://en.wikipedia.org/wiki/Twitter"
+    @twuckoo.stubs(:next).returns(article_url).then.
+                         returns(article_url).then.
                          returns(nil)
     @twuckoo.expects(:send_tweet).once
     @twuckoo.run

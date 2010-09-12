@@ -24,14 +24,9 @@ module WikipediaTFA
   end
 
   def next
-    prev_tweet = get_last_tweet
+    prev_tweet = twitter_module.latest_tweet(config)
     next_tweet = fetch_tfa
     prev_tweet == next_tweet ? '' : next_tweet
   end
 
-  private
-  def get_last_tweet
-    last_tweet = twitter.timeline_for(:me).first
-    last_tweet.text if last_tweet
-  end
 end
