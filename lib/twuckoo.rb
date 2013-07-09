@@ -1,13 +1,9 @@
 $:.unshift File.expand_path(File.dirname(__FILE__))
 
-module Twuckoo
-
-end
-
-require 'environments'
-require 'duration_string'
-require 'modules'
+module Twuckoo; end
 
 require 'twuckoo/config'
+require 'twuckoo/duration_string'
+require 'twuckoo/feeders'
 require 'twuckoo/runner'
 require 'twuckoo/twitter_oauth_module'

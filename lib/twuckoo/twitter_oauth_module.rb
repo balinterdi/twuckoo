@@ -2,6 +2,7 @@ require 'twitter_oauth/client'
 require 'twitter_oauth'
 
 module Twuckoo::TwitterOauth
+  #TODO: This should be a class and instantiated as @tweeter in Twuckoo::Runner
 
   def self._tweet(message, options)
     client(options).update(message)
