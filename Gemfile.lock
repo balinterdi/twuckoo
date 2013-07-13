@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    twuckoo (0.5.1)
+    twuckoo (0.5.2)
       hpricot (>= 0.6.164)
       mail (>= 1.6.0)
       tlsmail (>= 0.0.1)
