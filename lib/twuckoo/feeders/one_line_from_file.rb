@@ -40,9 +40,7 @@ module Twuckoo
     end
 
     def get_unused_lines
-      unused_lines = get_all_lines.reject { |line| get_used_lines.include?(line) }
-      p unused_lines
-      unused_lines
+      get_all_lines.reject { |line| get_used_lines.include?(line) }
     end
 
     def load_lines

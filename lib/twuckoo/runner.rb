@@ -21,7 +21,6 @@ class Twuckoo::Runner
     @feeder.load_tweets
     next_tweet = @feeder.next
     #TODO: Fetching @feeder.next twice seems too complicated
-    p next_tweet
     while (next_tweet and !tweet_limit_reached?) do
       tweet(next_tweet)
       wait if wait_between_tweets?
