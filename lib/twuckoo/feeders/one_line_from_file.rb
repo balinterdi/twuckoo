@@ -10,6 +10,9 @@ module Twuckoo
     LINES_FILE = 'lines.txt'
     USED_LINES_FILE = 'used_lines.txt'
 
+    def initialize(tweeter_module)
+    end
+
     def setup
       @lines = []
     end

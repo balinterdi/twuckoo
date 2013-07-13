@@ -35,18 +35,18 @@ class Twuckoo::Runner
 
   attr_accessor :tweets_sent
 
-  def initialize(feeder_class, tweeter_module=nil, args=[])
+  def initialize(feeder_class, tweeter_module=Twuckoo::TwitterOauth, args=[])
+    # tweeter_module should be a class instance instead. Then everything falls into place
+    @tweeter_module = tweeter_module
+
     #TODO: Fail if feeder_class is nil or better: parse options first
     unless feeder_class.nil?
       feeder_class = self.class.get_feeder_class(feeder_class)
-      @feeder = feeder_class.new
+      @feeder = feeder_class.new(@tweeter_module)
     end
 
     #TODO: This should be stored in the tweeter, not the runner
     @tweets_sent = 0
-
-    # tweeter_module should be a class instance instead. Then everything falls into place
-    @tweeter_module = tweeter_module.nil? ? Twuckoo::TwitterOauth : tweeter_module
 
     @options = OpenStruct.new
     parse_options!(args)
