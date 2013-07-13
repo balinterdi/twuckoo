@@ -1,4 +1,7 @@
 require 'bundler/setup'
 require 'pry'
 
-# pry
+desc "Launch a pry console with all dependencies loaded"
+task :console do
+  pry
+end
